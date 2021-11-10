@@ -71,8 +71,8 @@ def pred_w(G, dict_name, frame_path, proj_folder, outdir, nn_max=1):
 @click.option('--network', 'network_pkl', help='Network pickle filename', required=True)
 @click.option('--seed',                   help='Random seed', type=int, default=303, show_default=True)
 @click.option('--dict', 'dict_name',      help='dictionary name', default='wdict')
-@click.option('--frame', 'frame_path',    help='dataset frame csv name', default=None)
-@click.option('--pfolder', 'proj_folder', help='indivdual projection folder', default=None)
+@click.option('--frame', 'frame_path',    help='test dataframe csv', default=None, required=True)
+@click.option('--pfolder', 'proj_folder', help='individual projection folder', default=None, required=True)
 @click.option('--outdir', 'outdir',       help='output dir', default='./out')
 def run_pred(network_pkl: str, seed: int, dict_name: str, 
             frame_path: str, proj_folder: str, outdir: str):  
