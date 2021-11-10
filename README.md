@@ -24,6 +24,7 @@ tensorboard 2.5.0
 numpy 1.20.3
 scipy 1.6.2
 scikit-image 0.18.1
+pandas
 tqdm
 glob
 pickle5
@@ -36,11 +37,14 @@ pickle5
     The repository contains codes for developing robust ResNet classifier with a superior performance and interpretability. 
 
 
-## How to install and run
+## How to predict the future state of a knee
 ### Preparing the training data and labels
 Download all available OAI and MOST images from https://nda.nih.gov/oai/ and https://most.ucsf.edu/. The access to the images is free and painless. You just need to register and provide the information about yourself and agree with the terms of data use. Besides, please also download the label files named  ```Semi-Quant_Scoring_SAS```  and ``` MOSTV01235XRAY.txt ``` from [OAI](https://nda.nih.gov/oai/full_downloads.html) and [MOST](https://most.ucsf.edu/), separately. 
 
-Following the repo of [KNEE Localization](https://github.com/MIPT-Oulu/KNEEL), we utilized a [pre-trained Hourglass network](http://mipt-ml.oulu.fi/models/KNEEL/snapshots_release.tar.xz) and extracted 52,981 and 20,158 (separated left or right) knee ROI radiographs from both OAI and MOST datasets. We further extract the semi-quantitative assessment Kellgren-Lawrence Score (KLS) from the labels files above. To better relate imaging and tabular data together, in OAI dataset, we name the knee radiographs using ```ID_BARCDBU_DATE_SIDE.png```, e.g., ```9927360_02160601_20070629_l.png```. 
+Following the repo of [KNEE Localization](https://github.com/MIPT-Oulu/KNEEL), we utilized a [pre-trained Hourglass network](http://mipt-ml.oulu.fi/models/KNEEL/snapshots_release.tar.xz) and extracted 52,981 and 20,158 (separated left or right) knee ROI (256x256) radiographs from both OAI and MOST datasets. We further extract the semi-quantitative assessment Kellgren-Lawrence Score (KLS) from the labels files above. To better relate imaging and tabular data together, in OAI dataset, we name the knee radiographs using ```ID_BARCDBU_DATE_SIDE.png```, e.g., ```9927360_02160601_20070629_l.png```. For instance, to generate the KLS label file (`most.csv`) of the MOST dataset, one can run:
+```.bash
+python kls.py
+```
 
 ### Training a StyleGAN2 model on radiological data
 Follow the official repo [StyleGAN2](https://github.com/NVlabs/stylegan2-ada-pytorch), datasets are stored as uncompressed ZIP archives containing uncompressed PNG files.
@@ -49,6 +53,48 @@ In the auto configuration, training a OAI GAN boils down to:
 ```.bash
 python train.py --outdir=~/training-runs --data=~/OAI_data.zip --gpus=2
 ```
-The total training time on 2 Titan RTX cards with a resolution of 256x256 takes around 4 days to finish.
+The total training time on 2 Titan RTX cards with a resolution of 256x256 takes around 4 days to finish. The best GAN model of our experiment can be downloaded at [here]().
 
+### Projecting training radiographs to latent space
+To find the matching latent vector for a given training set, run:
+```.bash
+python projector.py --outdir=~/pro_out --target=~/training_set/ --network=checkpoint.pkl
+```
+The function `multi_projection()` within the script will generate a dictionary contains pairs of image name and its corresponding latent code and individual projection folders. 
 
+### Synthesize future radiograph
+- **require**: A pre-trained network G, test dataframe path, and individual projection folders.
+To predict the baseline radiographs within the test dataframe, run: 
+```.bash
+python prog_w.py --network=checkpoint.pkl --frame=test.csv --pfolder=~/pro_out/ 
+```
+
+## Estimating the risk of OA progression
+### 
+
+## Baseline classifier
+
+## License
+
+Copyright &copy; 2021, NVIDIA Corporation. All rights reserved.
+
+This work is made available under the [Nvidia Source Code License](https://nvlabs.github.io/stylegan2-ada-pytorch/license.html).
+
+## Citation
+
+```
+@inproceedings{Karras2020ada,
+  title     = {Training Generative Adversarial Networks with Limited Data},
+  author    = {Tero Karras and Miika Aittala and Janne Hellsten and Samuli Laine and Jaakko Lehtinen and Timo Aila},
+  booktitle = {Proc. NeurIPS},
+  year      = {2020}
+}
+```
+
+## Development
+
+This is a research reference implementation and is treated as a one-time code drop. As such, we do not accept outside code contributions in the form of pull requests.
+
+## Acknowledgements
+
+We thank David Luebke for helpful comments; Tero Kuosmanen and Sabu Nadarajan for their support with compute infrastructure; and Edgar Sch&ouml;nfeld for guidance on setting up unconditional BigGAN.

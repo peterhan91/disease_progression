@@ -9,7 +9,7 @@ most_df = most_df.filter(items=['MOSTID','ID',
                                 'V0XRKL','V1XRKL','V2XRKL','V3XRKL','V5XRKL',
                                 'V0XLKL','V1XLKL','V2XLKL','V3XLKL','V5XLKL'])
 
-imgs_ = sorted(glob.glob('../OAI_Xray/dataset_most/imgs/*.png'))
+imgs_ = sorted(glob.glob('../Xray/dataset_most/imgs/*.png'))
 files = list(glob.glob('../MOST/*/*/*/*/*/*'))
 
 kls = []
