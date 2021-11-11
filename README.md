@@ -55,7 +55,7 @@ python train.py --outdir=~/training-runs --data=~/OAI_data.zip --gpus=2
 ```
 The total training time on 2 Titan RTX cards with a resolution of 256x256 takes around 4 days to finish. The best GAN model of our experiment can be downloaded at [here](https://drive.google.com/file/d/1spL4cDH6B8rL1UN2Nx3gF9TnoLiBK-gU/view?usp=sharing).
 
-### Projecting training radiographs to latent space
+### Projecting training radiographs to latent space 
 To find the matching latent vector for a given training set, run:
 ```.bash
 python projector.py --outdir=~/pro_out --target=~/training_set/ --network=checkpoint.pkl
@@ -105,3 +105,8 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ```
 ```
+
+## Acknowledgments
+
+- **KNEE Localization** (https://github.com/MIPT-Oulu/KNEEL)
+- **StyleGAN2-ADA-Pytorch** (https://github.com/NVlabs/stylegan2-ada-pytorch)
