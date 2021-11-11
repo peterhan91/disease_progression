@@ -11,7 +11,7 @@ class PatchDataset(Dataset):
 
         self.transform = transform
         self.path_to_images = path_to_images
-        self.df = pd.read_csv("../OAI_distinguish/label/most_ptest_.csv")
+        self.df = pd.read_csv("./label/most.csv")
         self.fold = fold
         self.df = self.df[self.df['fold'] == fold]
         if(sample > 0 and sample < len(self.df)):

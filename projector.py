@@ -14,7 +14,6 @@ import glob
 from time import perf_counter
 
 import click
-import imageio
 import numpy as np
 import PIL.Image
 import pickle
