@@ -72,11 +72,6 @@ python prog_w.py --network=checkpoint.pkl --frame=test.csv --pfolder=~/pro_out/
 ## Estimating the risk of OA progression
 In this study, we have the ability to predict the morphological appearance of the radiograph at a future time point and compute the risk based on the above synthesized state. We used an adversarially trained [ResNet model](https://github.com/peterhan91/Medical-Robust-Training) that can correctly classify the KLS of the input knee radiograph.
 
-We denote $x_i$, $x_j$ as baseline and follow-up knee radiographs respectively, and  $c_i$, $c_j$ as KLS classes for $x_i$ and $x_j$ ranging from 0 to 4.
-We defined patients with imminent OA onset and/or progression towards osteoarthritic changes as those, who showed progress of more than one KLS ($c_j - c_i > 1$) over scans.
-We then computed the probability of OA progression ($y=1$) as a sum of joint probabilities $\{ (c_i,\, c_j) \}$ which fulfill the condition that the KLS change is larger than 1, i.e., $c_j - c_i > 1$, between its prior and follow-up visit radiographs:
-$p(y=1|x_i, x_j) = \sum_{\{ (c_j-c_i > 1) \}}p(\text{KLS}=c_i|x_i)\times p(\text{KLS}=c_j|x_j)$.
-
 To generate the ROC curve of our model, run: 
 ```.bash
 python risk.py --ytrue=~/y_true.npy --ystd=~/baseline/pred/y_pred.npy --ybase=~/kls_cls/pred/ypred.npy --yfinal=~/kls_cls/pred/ypred_.npy --df=~/oai.csv
