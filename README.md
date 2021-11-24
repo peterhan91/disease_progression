@@ -99,6 +99,14 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 ## Citation
 
 ```
+@misc{han2021predicting,
+      title={Predicting Osteoarthritis Progression in Radiographs via Unsupervised Representation Learning}, 
+      author={Tianyu Han and Jakob Nikolas Kather and Federico Pedersoli and Markus Zimmermann and Sebastian Keil and Maximilian Schulze-Hagen and Marc Terwoelbeck and Peter Isfort and Christoph Haarburger and Fabian Kiessling and Volkmar Schulz and Christiane Kuhl and Sven Nebelung and Daniel Truhn},
+      year={2021},
+      eprint={2111.11439},
+      archivePrefix={arXiv},
+      primaryClass={eess.IV}
+}
 ```
 
 ## Acknowledgments
