@@ -50,7 +50,7 @@ def pred_w(G, dict_name, frame_path, proj_folder, outdir, nn_max=1):
                 nn0 = np.load(nns[0])['w']
                 nn1 = np.load(nns[-1])['w']
                 vdiffs += nn1 - nn0
-                ratio = time_ / time
+                ratio = time / time_
                 vdiffs = vdiffs * ratio
                 counter += 1
                 pats.append(pat_)

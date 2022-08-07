@@ -1,6 +1,10 @@
 # Predicting Osteoarthritis Progression via Unsupervised Adversarial Representation Learning
 (c) Tianyu Han and Daniel Truhn, RWTH Aachen University, 2021
 
+### update on 07.08.2022
+- corrected the prefactor at line 53 in `prog_w.py` to $\frac{\Delta T}{\Delta t_i}$.
+- added multiple follow-ups experiment to `prog_multi.py` script.
+
 ## About
 ### What's included in this Repo
 The repository includes the codes for data / label preparation and inferencing the future knee radiograph, training and testing the baseline classifier and also the links to the pre-trained generative model.
